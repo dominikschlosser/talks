@@ -1,37 +1,483 @@
-:revealjs_theme: white
+:revealjs_theme: simple
 :imagesdir: images
 :customcss: styles/theme.css
 
+:source-highlighter: highlightjs
+
+:revealjs_center: false
 :revealjs_width: '100%'
-:revealjs_height: '100%'
+
+:docinfo: shared
+
+== Funktionale Programmierung für Java Entwickler 
+
+image::title.png[]
+[.extra-small]
+Dominik Schlosser (@dmn1k) +
+ISO Software Systeme GmbH
+
+[.image-source]
+_Bild-Quelle: mkyong.com_
+
+// START: TEMP META
+=== Zeitliche Einordnung
+
+image::zeitliche-einordnung.png[]
+
+=== Was Ihr heute erwarten könnt
+
+* Erste Iteration des Vortrags (basierend auf früheren Versionen u.a. mit Niels)
+* Lehrreiche Inhalte
+* Einen Einblick in meine Arbeitsweise ;-)
+
+=== Was Ihr heute NICHT erwarten könnt
+
+* Einen perfekt ausgearbeiteten und eingeübten Vortrag
+* Fehlerfreie Präsentation (insb. Live Coding Demos)
+* Viel Neues wenn ihr euch mit funktionaler Programmierung bereits auskennt
+
+=== ICH erwarte von EUCH Feedback zu
+
+* Inhalten
+* Vortragsstruktur (Aufbau, Länge der Abschnitte, Abwechslungsreichtum, ...)
+* Codebeispielen (Livecoding vs Slides, Art der Beispiele)
+
+// END: TEMP META
+
+== Über mich
 
 
-= Title Slide
+* Software-Entwickler bei ISO Software Systeme GmbH seit 2016
+* Bei der Arbeit primär Java (EE) und Typescript/JavaScript
+* Privat u.a. Haskell, Elm, Scala
 
-image::iso-theme/iso-logo.png[]
-image::iso-theme/iso-punkte.png[]
-image::iso-theme/iso-strich.png[]
+== Die ISO-Gruppe
+
+image::iso-vorstellung.png[]
 
 [%notitle]
-== Slide One
+== unemployable crazies
 
-image::iso-theme/iso-logo.png[]
-image::iso-theme/iso-punkte.png[]
-image::iso-theme/iso-strich.png[]
+image::fp-unemplyable-crazies.png[]
 
-* Foo
-* Bar
-* World
+[%notitle]
+== Alan Turing computation
 
-== Slide Two
+[quote, Alan Turing]
+____
+Anything that is "effectively" computable can be computed by a +
+*Universal Turing Machine*
+____
 
-image::iso-theme/iso-logo.png[]
-image::iso-theme/iso-punkte.png[]
-image::iso-theme/iso-strich.png[]
+[%notitle]
+== turing machine
 
-Hello World - Good Bye Cruel World
+image::turing-machine.jpg[]
+
+[.image-source]
+_Quelle: aturingmachine.com_
+
+[%notitle]
+== Alonzo church lambda
+
+[quote, Alonzo Church]
+____
+Anything that is "effectively" computable can be computed by +
+*λ-calculus*
+____
+
+
+[%notitle]
+== lambda calculus
+
+[quote, https://en.wikipedia.org/wiki/Lambda_calculus]
+____
+Lambda calculus (also written as λ-calculus) 
+is a formal system in mathematical logic 
+for expressing computation based on function abstraction 
+and application using variable binding and substitution. 
+
+It is a universal model of computation that can be used 
+to simulate any Turing machine.
+____
+
+== FP auf dem Weg in den Mainstream
+
+[%step]
+* In C# gibt es schon lange eine recht gute Unterstützung (LINQ, seit C# 7 Pattern Matching)
+* Seit C++11 gibt es auch dort eine Lambda-Syntax
+* Die JavaScript-Community bewegt sich immer stärker in diese Richtung (siehe bspw. React/Redux, neue ES-Features)
+* Seit Java 8 gibt es die Lambda-Syntax in Java
+
+
+== Zusammenfassung: Lambda Calculus
+
+[%step]
+* Imperative Sprachen wie C, C++, Java usw. basieren auf der Idee der *Turing-Maschine* (Lesen/Schreiben von einem gemeinsamen Speicher)
+* Eine andere, gleichwertige Herangehensweise ist der sog. *Lambda Calculus* - Grundlage funktionaler Sprachen
+* Funktionale Konzepte halten vermehrt auch in Mainstream-Sprachen Einzug 
+
+== Beispiel (Imperativ)
+
+[source, java]
+----
+private List<Integer> getEvenNumbers(List<Integer> input) {
+    List<Integer> result = new ArrayList<>();
+    for (Integer number : input) {
+        if(number % 2 == 0){
+            result.add(number);
+        }
+
+    }
+
+    return result;
+}
+----
+
+=== Beispiel (Imperativ) - Aufruf
+
+[source, java]
+----
+List<Integer> input = new ArrayList<>();
+    for (int i = 1; i <= 100; i++) {
+        input.add(i);
+    }
+
+    List<Integer> result = getEvenNumbers(input);
+
+    for (Integer number : result) {
+    System.out.println(number);
+}
+----
+
+== Beispiel (Funktional)
+
+[source, java]
+----
+private List<Integer> getEvenNumbers(List<Integer> input){
+    return input.stream()
+                .filter(number -> number % 2 == 0)
+                .collect(Collectors.toList());
+}
+----
+
+=== Beispiel (Funktional) - Aufruf
+
+[source, java]
+----
+List<Integer> input = IntStream.rangeClosed(1, 100)
+        .mapToObj(number -> number)
+        .collect(Collectors.toList());
+
+
+List<Integer> result = getEvenNumbers(input);
+
+result.forEach(System.out::println);
+----
+
+[%notitle]
+== Was ist eine Funktion?
+
+image::Function.svg[width="500px"]
+
+[.image-source]
+_Quelle: Wikipedia_
+
+== Was ist eine Funktion?
+
+* Gleicher Input => gleicher Output!
+* Keine Seiteneffekte!
+
+== Keine Seiteneffekte
+
+image::wtf.webp[width="400px"]
+
+[.image-source]
+_Quelle: Giphy_
+
+[%notitle]
+== State in OO
+
+[quote, Joe Armstrong (Creator of Erlang)]
+____
+[...] the problem with object-oriented languages is
+they’ve got all this implicit environment that they carry around with them.
+
+You wanted a banana 
+but what you got was a gorilla holding the banana
+and the entire jungle.
+____
+
+== Seiteneffekte in rein funktionalen Sprachen
+
+image::elm-effects.svg[]
+
+[.image-source]
+_Quelle: https://guide.elm-lang.org/architecture/effects/_
+
+== Functional Core - Imperative Shell
+
+image::clean-arch.png[]
+
+== Zusammenfassung: Grundlagen der FP
+
+[%step]
+* Funktionen sollten *pure* sein, d.h. bei gleichem Input immer den gleichen Output zurückgeben
+* Funktionen dürfen *keine Seiteneffekte* haben
+* Daten sind *unveränderbar*
+* In Hybridsprachen wie Java bietet sich das Pattern *"Functional Core - Imperative Shell"* an
+
+== Functional Java
+
+image::duke-lambda.jpg[]
+
+[.image-source]
+_Bild-Quelle: https://danielpecos.com/2015/04/02/java-8-functional-programming/_
+
+[.speaker-hint]
+DEMO
 
 [NOTE.speaker]
 --
-Actually things aren't that bad
+NEXT: DEMO
 --
+
+[%notitle]
+== Optionals start
+
+image::hoare.jpg[]
+
+[quote, Tony Hoare]
+____
+I call it my billion-dollar mistake. +
+It was the invention of the null reference in 1965.
+____
+
+[.image-source]
+_Quelle: Wikipedia_
+
+[.speaker-hint]
+DEMO
+
+[NOTE.speaker]
+--
+NEXT: DEMO
+--
+
+== Railway-oriented programming
+
+image::rop.jpg[]
+
+== Zusammenfassung: Nutze das Typsystem!
+
+[%step]
+* NULL hat keine klare Semantik und sollte daher möglichst vermieden werden
+* Optionals sind ein Container für einen oder keinen Wert
+* Railway-oriented programming bezeichnet den Umgang mit Spezialfällen im normalen Programmfluss
+* Es ist eine gute Idee, das Typsystem zu nutzen um (Fachdomänen-)Semantik abzubilden
+
+== Monaden: Ein Design Pattern
+
+[%step]
+* Monaden implementieren eine bind/flatMap- sowie eine unit-Funktion (bspw. Optional.of)
+* Es gelten folgende Gesetze: Links/Rechtseindeutigkeit und Assoziativität
+* Achtung: https://www.sitepoint.com/how-optional-breaks-the-monad-laws-and-why-it-matters/
+
+[NOTE.speaker]
+--
+Monad laws in Java: https://gist.github.com/ms-tg/7420496
+--
+
+== flatMap
+
+image::flatmap.jpg[]
+
+== Monaden: Ein paar Beispiele
+
+* Optional
+* Stream
+* List (nicht die JDK-Implementierung)
+* Try
+* Observable
+* Either
+* ...
+
+[.speaker-hint]
+DEMO
+
+[NOTE.speaker]
+--
+NEXT: DEMO
+--
+
+[%notitle]
+== Weiterführende Konzepte
+
+image::lambda-wordcloud.png[]
+
+== Going forward
+
+[%step]
+* Frameworks wie jooλ oder vavr
+* Pattern Matching in zukünftiger Java-Version
+* Alternative JVM-Sprachen wie Scala, Kotlin, Clojure, ...
+
+== Pattern Matching
+
+[source, java]
+----
+abstract class Expr {}
+
+class Num extends Expr {
+    private int value;
+}
+
+class Sum extends Expr {
+    private Expr left;
+    private Expr right;
+}
+
+class Prod extends Expr {
+    private Expr left;
+    private Expr right;
+}
+----
+
+== instanceof-Kaskaden
+
+[source, java]
+----
+if(x instanceof Num){
+    Num num = (Num)x;
+    // ...
+} else if (x instanceof Sum){
+    Sum sum = (Sum)x;
+    // ...
+} else if (x instanceof Prod){
+    Prod prod = (Prod)x;
+    // ...
+} 
+----
+
+== Visitor Pattern
+
+[source, java]
+----
+interface AstVisitor {
+    void visit(Num num);
+    void visit(Sum sum);
+    void visit(Prod prod);
+}
+
+abstract class Expr {
+    abstract void accept(AstVisitor visitor);
+}
+
+class Num extends Expr {
+    void accept(AstVisitor visitor) {
+        visitor.visit(this);
+    }
+}
+----
+
+== Pattern Matching - Scala
+
+[source, scala]
+----
+def evalExpr(e: Expr): Int = e match {
+  case Num(n) => n
+  case Sum(l, r) => evalExpr(l) + evalExpr(r)
+  case Prod(l, r) => evalExpr(l) * evalExpr(r)
+}
+----
+
+== Pattern Matching - vavr
+
+[source, java]
+----
+public int evalExpr(Expr expr) {
+    return Match(expr).of(
+        Case($(instanceOf(Num.class)), num -> num.getValue()),
+        Case($(instanceOf(Sum.class)), sum -> evalExpr(sum.getLeft()) + evalExpr(sum.getRight()),
+        Case($(instanceOf(Prod.class)), prod -> evalExpr(prod.getLeft()) * evalExpr(prod.getRight()),
+        Case($(), o -> { throw new IllegalStateException(expr); })
+    );
+}
+----
+
+== Pattern Matching - Java vFuture
+
+[source, java]
+----
+public int evalExpr(Expr expr) {
+    switch(expr){
+        case Num(int v): return v;
+        case Sum(Expr l, Expr r): return evalExpr(l) + evalExpr(r);
+        case Prod(Expr l, Expr r): return evalExpr(l) * evalExpr(r);
+        default: throw new IllegalStateException(expr);
+    }
+}
+----
+
+== Zusammenfassung: Pattern Matching
+
+[%step]
+* Pattern Matching ist strukturelle Dekomposition einer Typhierarchie
+* Funktioniert nur auf Typen mit bestimmten Eigenschaften (Wert-Semantik, "unapply", möglichst sealed)
+* Stand heute muss man Pattern Matching in Code nachbauen (bspw. mit vavr) oder man nutzt bspw. das Visitor-Pattern
+* Pattern-Matching wird im Rahmen von Project Amber Teil von Java werden
+
+== Fehlende Features mit jool nachrüsten
+
+[source, java]
+----
+// (1, 2, 3, 4, 5, 6)
+Seq.of(1, 2, 3).concat(Seq.of(4, 5, 6));
+
+// (tuple(1, "a"), tuple(2, "b"), tuple(3, "c"))
+Seq.of(1, 2, 3).zip(Seq.of("a", "b", "c"));
+
+// (1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, ...)
+Seq.of(1, 2, 3).cycle();
+
+// tuple((1, 3), (2, 4))
+Seq.of(1, 2, 3, 4).partition(i -> i % 2 != 0);
+
+// usw.
+----
+
+== Currying mit vavr
+
+[source, java]
+----
+Function2<Integer, Integer, Integer> sum = (a, b) -> a + b;
+Function1<Integer, Integer> add2 = sum.curried().apply(2); 
+
+then(add2.apply(4)).isEqualTo(6);
+----
+
+== Lifting mit vavr
+
+[source, java]
+----
+Function2<Integer, Integer, Integer> divide = (a, b) -> a / b;
+
+Function2<Integer, Integer, Option<Integer>> safeDivide = Function2.lift(divide);
+
+// = None
+Option<Integer> i1 = safeDivide.apply(1, 0); 
+
+// = Some(2)
+Option<Integer> i2 = safeDivide.apply(4, 2);
+----
+
+[%notitle]
+== Abschied
+
+[quote, Brian Goetz (Java Language Architect)]
+____
+Learn OO. +
+Learn FP. +
+Rise above them both.
+____
+
