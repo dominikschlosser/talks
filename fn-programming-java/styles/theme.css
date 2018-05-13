@@ -1,0 +1,36 @@
+img[src="images/iso-theme/iso-logo.png"] {
+    position: fixed !important; 
+    right: 0em !important;
+	top: 0em !important;
+	width:  !important;
+	
+	margin: 0 !important;
+	background: none !important;
+	border: 0 !important;
+	box-shadow: none !important;
+}
+
+img[src="images/iso-theme/iso-punkte.png"] {
+    position: fixed !important; 
+    top: 0em !important;
+	left: 0em !important;
+	
+	margin: 0 !important;
+	background: none !important;
+	border: 0 !important;
+	box-shadow: none !important;
+}
+
+img[src="images/iso-theme/iso-strich.png"] {
+    position: fixed !important; 
+    right: 0em !important;
+	left: 0em !important;
+	bottom: 0em !important;
+	height: 28px !important;
+	width: 100% !important;
+	
+	margin: 0 !important;
+	background: none !important;
+	border: 0 !important;
+	box-shadow: none !important;
+}

@@ -1,12 +1,33 @@
+:revealjs_theme: white
+:imagesdir: images
+:customcss: styles/theme.css
+
+:revealjs_width: '100%'
+:revealjs_height: '100%'
+
+
 = Title Slide
 
+image::iso-theme/iso-logo.png[]
+image::iso-theme/iso-punkte.png[]
+image::iso-theme/iso-strich.png[]
+
+[%notitle]
 == Slide One
+
+image::iso-theme/iso-logo.png[]
+image::iso-theme/iso-punkte.png[]
+image::iso-theme/iso-strich.png[]
 
 * Foo
 * Bar
 * World
 
 == Slide Two
+
+image::iso-theme/iso-logo.png[]
+image::iso-theme/iso-punkte.png[]
+image::iso-theme/iso-strich.png[]
 
 Hello World - Good Bye Cruel World
 
