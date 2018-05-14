@@ -127,3 +127,10 @@
 - Weitere Tools für den Werkzeugkasten
 - Erweitert den Horizont
 - "Learn OO. Learn FP. Rise above them both."
+
+
+TODO:
+- KÜRZER! Mindestens um ein Drittel kürzen
+- Codebeispiele auf Folien - hin und her springen schwer nachvollziehbar
+- "werden wir gleich noch sehen" - flow passt nicht
+- flatMap-Erklärung vorziehen
