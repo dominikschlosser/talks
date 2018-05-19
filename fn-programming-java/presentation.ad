@@ -19,31 +19,6 @@ ISO Software Systeme GmbH
 [.image-source]
 _Bild-Quelle: mkyong.com_
 
-// START: TEMP META
-=== Zeitliche Einordnung
-
-image::zeitliche-einordnung.png[]
-
-=== Was Ihr heute erwarten könnt
-
-* Erste Iteration des Vortrags (basierend auf früheren Versionen u.a. mit Niels)
-* Lehrreiche Inhalte
-* Einen Einblick in meine Arbeitsweise ;-)
-
-=== Was Ihr heute NICHT erwarten könnt
-
-* Einen perfekt ausgearbeiteten und eingeübten Vortrag
-* Fehlerfreie Präsentation (insb. Live Coding Demos)
-* Viel Neues wenn ihr euch mit funktionaler Programmierung bereits auskennt
-
-=== ICH erwarte von EUCH Feedback zu
-
-* Inhalten
-* Vortragsstruktur (Aufbau, Länge der Abschnitte, Abwechslungsreichtum, ...)
-* Codebeispielen (Livecoding vs Slides, Art der Beispiele)
-
-// END: TEMP META
-
 == Über mich
 
 
@@ -139,13 +114,13 @@ private List<Integer> getEvenNumbers(List<Integer> input) {
 [source, java]
 ----
 List<Integer> input = new ArrayList<>();
-    for (int i = 1; i <= 100; i++) {
-        input.add(i);
-    }
+for (int i = 1; i <= 100; i++) {
+    input.add(i);
+}
 
-    List<Integer> result = getEvenNumbers(input);
+List<Integer> result = getEvenNumbers(input);
 
-    for (Integer number : result) {
+for (Integer number : result) {
     System.out.println(number);
 }
 ----
