@@ -59,8 +59,16 @@ img[src="images/iso-vorstellung.png"] {
 .image-source {
 	font-size: 0.3em !important;
 	position: absolute !important; 
-    bottom:0px;
+    bottom:-200px;
     left:0px;
+}
+
+.reveal pre {
+    font-size: 1em;
+}
+
+.reveal pre code {
+    max-height: 1000px;
 }
 
 .reveal.slide .slides > section, .reveal.slide .slides > section > section {

@@ -1,4 +1,4 @@
-package com.github.dmn1k.talks.fn.section2;
+package com.github.dmn1k.talks.fn.backup.filter;
 
 import java.util.ArrayList;
 import java.util.List;

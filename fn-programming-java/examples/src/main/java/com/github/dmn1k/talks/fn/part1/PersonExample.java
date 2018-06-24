@@ -1,14 +1,12 @@
-package com.github.dmn1k.talks.fn.section4;
+package com.github.dmn1k.talks.fn.part1;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class Example {
+public class PersonExample {
     private static class Person {
         private String name;
         private String firstName;
@@ -28,5 +26,4 @@ public class Example {
                 .map(p -> p.getName())
                 .collect(Collectors.toList());
     }
-
 }

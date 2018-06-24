@@ -1,4 +1,4 @@
-package com.github.dmn1k.talks.fn.section5.domain;
+package com.github.dmn1k.talks.fn.part2.domain;
 
 public class Insurance {
     private String name;

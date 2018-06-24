@@ -2,92 +2,146 @@
 link.rel = 'stylesheet';
 link.type = 'text/css';
 link.href = window.location.search.match( /print-pdf/gi ) ? "reveal.js/css/print/pdf.css" : "reveal.js/css/print/paper.css";
-document.getElementsByTagName( 'head' )[0].appendChild( link );</script><!--[if lt IE 9]><script src="reveal.js/lib/js/html5shiv.js"></script><![endif]--><link rel="stylesheet" href="styles/theme.css"></head><body><div class="reveal"><div class="slides"><section><section id="funktionale_programmierung_fr_java_entwickler"><h2>Funktionale Programmierung für Java Entwickler</h2><div class="imageblock" style=""><img src="images/title.png" alt="title"></div><div class="paragraph extra-small"><p>Dominik Schlosser (@dmn1k)<br>
-ISO Software Systeme GmbH</p></div><div class="paragraph image-source"><p><em>Bild-Quelle: mkyong.com</em></p></div></section><section id="zeitliche_einordnung"><h2>Zeitliche Einordnung</h2><div class="imageblock" style=""><img src="images/zeitliche-einordnung.png" alt="zeitliche einordnung"></div></section><section id="was_ihr_heute_erwarten_knnt"><h2>Was Ihr heute erwarten könnt</h2><div class="ulist"><ul><li><p>Erste Iteration des Vortrags (basierend auf früheren Versionen u.a. mit Niels)</p></li><li><p>Lehrreiche Inhalte</p></li><li><p>Einen Einblick in meine Arbeitsweise ;-)</p></li></ul></div></section><section id="was_ihr_heute_nicht_erwarten_knnt"><h2>Was Ihr heute NICHT erwarten könnt</h2><div class="ulist"><ul><li><p>Einen perfekt ausgearbeiteten und eingeübten Vortrag</p></li><li><p>Fehlerfreie Präsentation (insb. Live Coding Demos)</p></li><li><p>Viel Neues wenn ihr euch mit funktionaler Programmierung bereits auskennt</p></li></ul></div></section><section id="ich_erwarte_von_euch_feedback_zu"><h2>ICH erwarte von EUCH Feedback zu</h2><div class="ulist"><ul><li><p>Inhalten</p></li><li><p>Vortragsstruktur (Aufbau, Länge der Abschnitte, Abwechslungsreichtum, &#8230;&#8203;)</p></li><li><p>Codebeispielen (Livecoding vs Slides, Art der Beispiele)</p></li></ul></div></section></section>
-<section id="ber_mich"><h2>Über mich</h2><div class="ulist"><ul><li><p>Software-Entwickler bei ISO Software Systeme GmbH seit 2016</p></li><li><p>Bei der Arbeit primär Java (EE) und Typescript/JavaScript</p></li><li><p>Privat u.a. Haskell, Elm, Scala</p></li></ul></div></section>
+document.getElementsByTagName( 'head' )[0].appendChild( link );</script><!--[if lt IE 9]><script src="reveal.js/lib/js/html5shiv.js"></script><![endif]--><link rel="stylesheet" href="styles/theme.css"></head><body><div class="reveal"><div class="slides"><section id="funktionale_programmierung_fr_java_entwickler"><h2>Funktionale Programmierung für Java Entwickler</h2><div class="imageblock" style=""><img src="images/title.png" alt="title"></div>
+<div class="paragraph extra-small"><p>Dominik Schlosser (@dmn1k)<br>
+ISO Software Systeme GmbH</p></div></section>
+<section id="ber_mich"><h2>Über mich</h2><div class="ulist"><ul><li><p>Software-Entwickler bei ISO Software Systeme GmbH</p></li><li><p>Java EE, Spring, Angular</p></li><li><p>Privat u.a. Haskell, Elm, Scala</p></li></ul></div></section>
 <section id="die_iso_gruppe"><h2>Die ISO-Gruppe</h2><div class="imageblock" style=""><img src="images/iso-vorstellung.png" alt="iso vorstellung"></div></section>
-<section id="unemployable_crazies"><div class="imageblock" style=""><img src="images/fp-unemplyable-crazies.png" alt="fp unemplyable crazies"></div></section>
+<section id="unemployable_crazies"><div class="imageblock" style=""><img src="images/fp-unemplyable-crazies.png" alt="fp unemplyable crazies" width="1000px"></div></section>
 <section id="alan_turing_computation"><div class="quoteblock"><blockquote><div class="paragraph"><p>Anything that is "effectively" computable can be computed by a<br>
 <strong>Universal Turing Machine</strong></p></div></blockquote><div class="attribution">&#8212; Alan Turing</div></div></section>
-<section id="turing_machine"><div class="imageblock" style=""><img src="images/turing-machine.jpg" alt="turing machine"></div>
-<div class="paragraph image-source"><p><em>Quelle: aturingmachine.com</em></p></div></section>
+<section id="turing_machine"><div class="imageblock" style=""><img src="images/turing-machine.jpg" alt="turing machine" width="1000px"></div>
+<div class="paragraph image-source"><p><em>By Rocky Acosta - Own work, CC BY 3.0, <a href="https://commons.wikimedia.org/w/index.php?curid=24369879" class="bare">https://commons.wikimedia.org/w/index.php?curid=24369879</a></em></p></div></section>
 <section id="alonzo_church_lambda"><div class="quoteblock"><blockquote><div class="paragraph"><p>Anything that is "effectively" computable can be computed by<br>
 <strong>λ-calculus</strong></p></div></blockquote><div class="attribution">&#8212; Alonzo Church</div></div></section>
 <section id="lambda_calculus"><div class="quoteblock"><blockquote><div class="paragraph"><p>Lambda calculus (also written as λ-calculus)
-is a formal system in mathematical logic
-for expressing computation based on function abstraction
-and application using variable binding and substitution.</p></div>
+is a <strong>formal system in mathematical logic</strong>
+for expressing computation based on <strong>function abstraction</strong>
+and application using <strong>variable binding and substitution</strong>.</p></div>
 <div class="paragraph"><p>It is a universal model of computation that can be used
 to simulate any Turing machine.</p></div></blockquote><div class="attribution">&#8212; https://en.wikipedia.org/wiki/Lambda_calculus</div></div></section>
-<section id="fp_auf_dem_weg_in_den_mainstream"><h2>FP auf dem Weg in den Mainstream</h2><div class="ulist"><ul><li class="fragment"><p>In C# gibt es schon lange eine recht gute Unterstützung (LINQ, seit C# 7 Pattern Matching)</p></li><li class="fragment"><p>Seit C++11 gibt es auch dort eine Lambda-Syntax</p></li><li class="fragment"><p>Die JavaScript-Community bewegt sich immer stärker in diese Richtung (siehe bspw. React/Redux, neue ES-Features)</p></li><li class="fragment"><p>Seit Java 8 gibt es die Lambda-Syntax in Java</p></li></ul></div></section>
-<section id="zusammenfassung_lambda_calculus"><h2>Zusammenfassung: Lambda Calculus</h2><div class="ulist"><ul><li class="fragment"><p>Imperative Sprachen wie C, C++, Java usw. basieren auf der Idee der <strong>Turing-Maschine</strong> (Lesen/Schreiben von einem gemeinsamen Speicher)</p></li><li class="fragment"><p>Eine andere, gleichwertige Herangehensweise ist der sog. <strong>Lambda Calculus</strong> - Grundlage funktionaler Sprachen</p></li><li class="fragment"><p>Funktionale Konzepte halten vermehrt auch in Mainstream-Sprachen Einzug</p></li></ul></div></section>
-<section><section id="beispiel_imperativ"><h2>Beispiel (Imperativ)</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">private List&lt;Integer&gt; getEvenNumbers(List&lt;Integer&gt; input) {
-    List&lt;Integer&gt; result = new ArrayList&lt;&gt;();
-    for (Integer number : input) {
-        if(number % 2 == 0){
-            result.add(number);
-        }
+<section id="fp_auf_dem_weg_in_den_mainstream"><h2>FP auf dem Weg in den Mainstream</h2><div class="ulist"><ul><li class="fragment"><p>C#: Lambda-Syntax, LINQ, Pattern Matching</p></li><li class="fragment"><p>C++: Lambda-Syntax</p></li><li class="fragment"><p>JavaScript: Lambda-Syntax, Bibliotheken wie ramda</p></li><li class="fragment"><p>Java: Lambda-Syntax, Stream-API usw seit Version 8</p></li></ul></div></section>
+<section id="zusammenfassung_lambda_calculus"><h2>Zusammenfassung: Lambda Calculus</h2><div class="ulist"><ul><li class="fragment"><p><strong>Imperative Sprachen</strong> (C, C++, Java usw.) basieren auf der Idee der <strong>Turing-Maschine</strong></p></li><li class="fragment"><p><strong>Funktionale bzw. deklarative Sprachen</strong> (Lisp, Haskell, Elm usw.) basieren auf dem <strong>Lambda Calculus</strong></p></li><li class="fragment"><p>Beide Ansätze sind <strong>gleich mächtig</strong></p></li><li class="fragment"><p>Funktionale Konzepte halten vermehrt auch in Mainstream-Sprachen Einzug</p></li></ul></div></section>
+<section><section id="beispiel_imperativ"><h2>Beispiel (Imperativ)</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">List&lt;Integer&gt; numbers = rangeClosed(1, 100);
+List&lt;Integer&gt; result = new ArrayList&lt;&gt;();
 
+for (Integer number : numbers) {
+    if(number % 2 == 0){
+        result.add(number);
+    }
+
+}
+
+System.out.println(result);</code></pre></div></div></section><section id="helper"><h2>Helper</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">public List&lt;Integer&gt; rangeClosed(int start, int endInclusive) {
+    List&lt;Integer&gt; result = new ArrayList&lt;&gt;();
+    for(int i = start; i &lt;= endInclusive; i++){
+        result.add(i);
     }
 
     return result;
-}</code></pre></div></div></section><section id="beispiel_imperativ_aufruf"><h2>Beispiel (Imperativ) - Aufruf</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">List&lt;Integer&gt; input = new ArrayList&lt;&gt;();
-    for (int i = 1; i &lt;= 100; i++) {
-        input.add(i);
-    }
-
-    List&lt;Integer&gt; result = getEvenNumbers(input);
-
-    for (Integer number : result) {
-    System.out.println(number);
 }</code></pre></div></div></section></section>
-<section><section id="beispiel_funktional"><h2>Beispiel (Funktional)</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">private List&lt;Integer&gt; getEvenNumbers(List&lt;Integer&gt; input){
-    return input.stream()
-                .filter(number -&gt; number % 2 == 0)
-                .collect(Collectors.toList());
-}</code></pre></div></div></section><section id="beispiel_funktional_aufruf"><h2>Beispiel (Funktional) - Aufruf</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">List&lt;Integer&gt; input = IntStream.rangeClosed(1, 100)
-        .mapToObj(number -&gt; number)
-        .collect(Collectors.toList());
+<section><section id="beispiel_funktional"><h2>Beispiel (Funktional)</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">List&lt;Integer&gt; numbers = IntStream.rangeClosed(1, 100);
 
+input.filter(number -&gt; number % 2 == 0)
+     .forEach(System.out::println);</code></pre></div></div></section><section id="mit_obligatorischem_java_overhead"><h2>Mit obligatorischem Java-Overhead</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">List&lt;Integer&gt; numbers = IntStream.rangeClosed(1, 100)
+                                 <strong>.mapToObj(number -&gt; number)
+                                 .collect(Collectors.toList())</strong>;
 
-List&lt;Integer&gt; result = getEvenNumbers(input);
-
-result.forEach(System.out::println);</code></pre></div></div></section></section>
-<section id="was_ist_eine_funktion"><div class="imageblock" style=""><img src="images/Function.svg" alt="Function" width="500px"></div>
+input<strong>.stream()</strong>
+     .filter(number -&gt; number % 2 == 0)
+     .forEach(System.out::println);</code></pre></div></div></section></section>
+<section id="was_ist_eine_funktion"><div class="imageblock" style=""><img src="images/Function.svg" alt="Function" width="600px"></div>
 <div class="paragraph image-source"><p><em>Quelle: Wikipedia</em></p></div></section>
-<section id="was_ist_eine_funktion_2"><h2>Was ist eine Funktion?</h2><div class="ulist"><ul><li><p>Gleicher Input &#8658; gleicher Output!</p></li><li><p>Keine Seiteneffekte!</p></li></ul></div></section>
-<section id="keine_seiteneffekte"><h2>Keine Seiteneffekte</h2><div class="imageblock" style=""><img src="images/wtf.webp" alt="wtf" width="400px"></div>
+<section id="keine_seiteneffekte"><h2>Keine Seiteneffekte</h2><div class="imageblock" style=""><img src="images/wtf.webp" alt="wtf" width="800px"></div>
 <div class="paragraph image-source"><p><em>Quelle: Giphy</em></p></div></section>
-<section id="state_in_oo"><div class="quoteblock"><blockquote><div class="paragraph"><p>[&#8230;&#8203;] the problem with object-oriented languages is
-they’ve got all this implicit environment that they carry around with them.</p></div>
-<div class="paragraph"><p>You wanted a banana
-but what you got was a gorilla holding the banana
-and the entire jungle.</p></div></blockquote><div class="attribution">&#8212; Joe Armstrong (Creator of Erlang)</div></div></section>
-<section id="seiteneffekte_in_rein_funktionalen_sprachen"><h2>Seiteneffekte in rein funktionalen Sprachen</h2><div class="imageblock" style=""><img src="images/elm-effects.svg" alt="elm effects"></div>
-<div class="paragraph image-source"><p><em>Quelle: <a href="https://guide.elm-lang.org/architecture/effects/" class="bare">https://guide.elm-lang.org/architecture/effects/</a></em></p></div></section>
-<section id="functional_core_imperative_shell"><h2>Functional Core - Imperative Shell</h2><div class="imageblock" style=""><img src="images/clean-arch.png" alt="clean arch"></div></section>
+<section><section id="seiteneffekte"><div class="imageblock" style=""><img src="images/sideeffects.jpg" alt="sideeffects" width="600px"></div></section><section id="assignments"><h2>Assignments</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">public class Product {
+    private double price;
+
+    public void applyTax(double taxPercent){
+        this.price = this.price + (this.price * taxPercent / 100);
+    }
+}</code></pre></div></div></section><section id="immutability"><h2>Immutability</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">public class Product {
+    private double price;
+
+    public Product applyTax(double taxPercent){
+        return new Product(this.price + (this.price * taxPercent / 100));
+    }
+}</code></pre></div></div></section></section>
+<section><section id="seiteneffekte_in_rein_funktionalen_sprachen"><h2>Seiteneffekte in rein funktionalen Sprachen</h2><div class="imageblock" style=""><img src="images/elm-effects.svg" alt="elm effects" width="1000px"></div><div class="paragraph image-source"><p><em>Quelle: <a href="https://guide.elm-lang.org/architecture/effects/" class="bare">https://guide.elm-lang.org/architecture/effects/</a></em></p></div></section><section id="command_pattern"><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">public interface Command&lt;T&gt; {
+    /**
+     * ACHTUNG: Hat potentiell Seiteneffekte!
+     */
+    T execute();
+}
+
+public class LoadProductsCommand implements Command&lt;Product&gt; {
+    private int productId;
+
+    public LoadProductsCommand(int id) { productId = id; }
+
+    public Product execute() {
+        return loadFromDb(id);
+    }
+}</code></pre></div></div></section><section id="runtime"><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">public interface Runtime {
+    &lt;T&gt; Observable&lt;T&gt; dispatch(Command&lt;T&gt; command);
+}
+
+// ...
+
+Message message = runtime.dispatch(loadProductsCommand)
+                         .map(product -&gt; ProductMessage.create(product));
+
+update(message);</code></pre></div></div></section></section>
+<section id="funktionaler_kern"><h2>Funktionaler Kern</h2><div class="imageblock" style=""><img src="images/clean-arch.png" alt="clean arch" width="600px"></div></section>
 <section id="zusammenfassung_grundlagen_der_fp"><h2>Zusammenfassung: Grundlagen der FP</h2><div class="ulist"><ul><li class="fragment"><p>Funktionen sollten <strong>pure</strong> sein, d.h. bei gleichem Input immer den gleichen Output zurückgeben</p></li><li class="fragment"><p>Funktionen dürfen <strong>keine Seiteneffekte</strong> haben</p></li><li class="fragment"><p>Daten sind <strong>unveränderbar</strong></p></li><li class="fragment"><p>In Hybridsprachen wie Java bietet sich das Pattern <strong>"Functional Core - Imperative Shell"</strong> an</p></li></ul></div></section>
 <section id="functional_java"><h2>Functional Java</h2><div class="imageblock" style=""><img src="images/duke-lambda.jpg" alt="duke lambda"></div>
 <div class="paragraph image-source"><p><em>Bild-Quelle: <a href="https://danielpecos.com/2015/04/02/java-8-functional-programming/" class="bare">https://danielpecos.com/2015/04/02/java-8-functional-programming/</a></em></p></div>
 <div class="paragraph speaker-hint"><p>DEMO</p></div>
 <aside class="notes"><div class="paragraph"><p>NEXT: DEMO</p></div></aside></section>
-<section id="optionals_start"><div class="imageblock" style=""><img src="images/hoare.jpg" alt="hoare"></div>
-<div class="quoteblock"><blockquote><div class="paragraph"><p>I call it my billion-dollar mistake.<br>
-It was the invention of the null reference in 1965.</p></div></blockquote><div class="attribution">&#8212; Tony Hoare</div></div>
-<div class="paragraph image-source"><p><em>Quelle: Wikipedia</em></p></div>
-<div class="paragraph speaker-hint"><p>DEMO</p></div>
-<aside class="notes"><div class="paragraph"><p>NEXT: DEMO</p></div></aside></section>
-<section id="railway_oriented_programming"><h2>Railway-oriented programming</h2><div class="imageblock" style=""><img src="images/rop.jpg" alt="rop"></div></section>
-<section id="zusammenfassung_nutze_das_typsystem"><h2>Zusammenfassung: Nutze das Typsystem!</h2><div class="ulist"><ul><li class="fragment"><p>NULL hat keine klare Semantik und sollte daher möglichst vermieden werden</p></li><li class="fragment"><p>Optionals sind ein Container für einen oder keinen Wert</p></li><li class="fragment"><p>Railway-oriented programming bezeichnet den Umgang mit Spezialfällen im normalen Programmfluss</p></li><li class="fragment"><p>Es ist eine gute Idee, das Typsystem zu nutzen um (Fachdomänen-)Semantik abzubilden</p></li></ul></div></section>
-<section id="monaden_ein_design_pattern"><h2>Monaden: Ein Design Pattern</h2><div class="ulist"><ul><li class="fragment"><p>Monaden implementieren eine bind/flatMap- sowie eine unit-Funktion (bspw. Optional.of)</p></li><li class="fragment"><p>Es gelten folgende Gesetze: Links/Rechtseindeutigkeit und Assoziativität</p></li><li class="fragment"><p>Achtung: <a href="https://www.sitepoint.com/how-optional-breaks-the-monad-laws-and-why-it-matters/" class="bare">https://www.sitepoint.com/how-optional-breaks-the-monad-laws-and-why-it-matters/</a></p></li></ul></div>
-<aside class="notes"><div class="paragraph"><p>Monad laws in Java: <a href="https://gist.github.com/ms-tg/7420496" class="bare">https://gist.github.com/ms-tg/7420496</a></p></div></aside></section>
-<section id="flatmap"><h2>flatMap</h2><div class="imageblock" style=""><img src="images/flatmap.jpg" alt="flatmap"></div></section>
+<section id="umgang_mit_fehlern"><h2>Umgang mit Fehlern</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">public Product loadProduct(int id) {
+    try {
+        return loadProductFromDb(id);
+    } catch (Exception e) {
+        LOGGER.error(e);
+        throw new RuntimeException(e);
+    }
+}</code></pre></div></div></section>
+<section id="umgang_mit_fehlern_2"><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">Order placeOrder(String itemId){
+    Item item = fetchItem(itemId);
+    if(item != null) {
+        ValidationResult validationResult = validate(item);
+        if(ValidationResult.OK.equals(validationResult)){
+            return createOrder(item);
+        } else {
+            throw new ValidationException("Validation for Item with id " + itemId + " failed");
+        }
+    } else {
+        throw new ItemNotFoundException("Item with id " + itemId + " not found");
+    }
+}</code></pre></div></div></section>
+<section id="rop"><div class="imageblock" style=""><img src="images/rop.jpg" alt="rop" width="1500px"></div></section>
+<section id="monaden_ein_design_pattern"><h2>Monaden: Ein Design Pattern</h2><div class="ulist"><ul><li class="fragment"><p>Monaden sind <strong>Container</strong> für Werte</p></li><li class="fragment"><p>Sie abstrahieren über den Zugriff auf diese Werte</p></li><li class="fragment"><p>Zwei Bestandteile: unit (Erzeugung) und bind (Mapping des enthaltenen Werts)</p></li></ul></div></section>
+<section><section id="monaden_beispiel"><h2>Monaden: Beispiel</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">double divide(int dividend, int divisor){
+    return (double) dividend / divisor;
+}</code></pre></div></div></section><section id="monaden_beispiel_2"><h2>Monaden: Beispiel</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">Optional&lt;Double&gt; divide(int dividend, int divisor){
+    if(divisor == 0){
+        return Optional.empty();
+    }
+
+    return Optional.of((double) dividend / divisor);
+}</code></pre></div></div></section><section id="monaden_beispiel_3"><h2>Monaden: Beispiel</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">String result = divide(5, 2)
+                    .map(result -&gt; "Das Ergebnis ist: " + result)
+                    .orElse("Es konnte kein Ergebnis ermittelt werden");
+
+System.out.println(result);</code></pre></div></div></section></section>
 <section id="monaden_ein_paar_beispiele"><h2>Monaden: Ein paar Beispiele</h2><div class="ulist"><ul><li><p>Optional</p></li><li><p>Stream</p></li><li><p>List (nicht die JDK-Implementierung)</p></li><li><p>Try</p></li><li><p>Observable</p></li><li><p>Either</p></li><li><p>&#8230;&#8203;</p></li></ul></div>
 <div class="paragraph speaker-hint"><p>DEMO</p></div>
 <aside class="notes"><div class="paragraph"><p>NEXT: DEMO</p></div></aside></section>
+<section id="flatmap"><h2>flatMap</h2><div class="imageblock" style=""><img src="images/flatmap.jpg" alt="flatmap"></div></section>
+<section id="zusammenfassung_nutze_das_typsystem"><h2>Zusammenfassung: Nutze das Typsystem!</h2><div class="ulist"><ul><li class="fragment"><p>NULL hat keine klare Semantik und sollte daher möglichst vermieden werden</p></li><li class="fragment"><p>Monaden wie Optional oder Try sind ein Container für Werte</p></li><li class="fragment"><p>Monaden kann man als ein weiteres Design Pattern erachten, das den Umgang mit Fehler/Spezialfällen erleichert</p></li><li class="fragment"><p>Es ist eine gute Idee, das Typsystem zu nutzen um (Fachdomänen-)Semantik abzubilden</p></li></ul></div></section>
 <section id="weiterfhrende_konzepte"><div class="imageblock" style=""><img src="images/lambda-wordcloud.png" alt="lambda wordcloud"></div></section>
 <section id="going_forward"><h2>Going forward</h2><div class="ulist"><ul><li class="fragment"><p>Frameworks wie jooλ oder vavr</p></li><li class="fragment"><p>Pattern Matching in zukünftiger Java-Version</p></li><li class="fragment"><p>Alternative JVM-Sprachen wie Scala, Kotlin, Clojure, &#8230;&#8203;</p></li></ul></div></section>
-<section id="pattern_matching"><h2>Pattern Matching</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">abstract class Expr {}
+<section id="pattern_matching"><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">abstract class Expr {}
 
 class Num extends Expr {
     private int value;
@@ -102,7 +156,7 @@ class Prod extends Expr {
     private Expr left;
     private Expr right;
 }</code></pre></div></div></section>
-<section id="instanceof_kaskaden"><h2>instanceof-Kaskaden</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">if(x instanceof Num){
+<section id="instanceof_kaskaden"><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">if(x instanceof Num){
     Num num = (Num)x;
     // ...
 } else if (x instanceof Sum){
@@ -112,7 +166,7 @@ class Prod extends Expr {
     Prod prod = (Prod)x;
     // ...
 }</code></pre></div></div></section>
-<section id="visitor_pattern"><h2>Visitor Pattern</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">interface AstVisitor {
+<section id="visitor_pattern"><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">interface AstVisitor {
     void visit(Num num);
     void visit(Sum sum);
     void visit(Prod prod);
@@ -159,9 +213,7 @@ Seq.of(1, 2, 3).zip(Seq.of("a", "b", "c"));
 Seq.of(1, 2, 3).cycle();
 
 // tuple((1, 3), (2, 4))
-Seq.of(1, 2, 3, 4).partition(i -&gt; i % 2 != 0);
-
-// usw.</code></pre></div></div></section>
+Seq.of(1, 2, 3, 4).partition(i -&gt; i % 2 != 0);</code></pre></div></div></section>
 <section id="currying_mit_vavr"><h2>Currying mit vavr</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">Function2&lt;Integer, Integer, Integer&gt; sum = (a, b) -&gt; a + b;
 Function1&lt;Integer, Integer&gt; add2 = sum.curried().apply(2);
 

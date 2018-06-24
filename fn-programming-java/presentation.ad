@@ -16,14 +16,11 @@ image::title.png[]
 Dominik Schlosser (@dmn1k) +
 ISO Software Systeme GmbH
 
-[.image-source]
-_Bild-Quelle: mkyong.com_
-
 == Über mich
 
 
-* Software-Entwickler bei ISO Software Systeme GmbH seit 2016
-* Bei der Arbeit primär Java (EE) und Typescript/JavaScript
+* Software-Entwickler bei ISO Software Systeme GmbH
+* Java EE, Spring, Angular
 * Privat u.a. Haskell, Elm, Scala
 
 == Die ISO-Gruppe
@@ -33,7 +30,7 @@ image::iso-vorstellung.png[]
 [%notitle]
 == unemployable crazies
 
-image::fp-unemplyable-crazies.png[]
+image::fp-unemplyable-crazies.png[width=1000px]
 
 [%notitle]
 == Alan Turing computation
@@ -47,10 +44,10 @@ ____
 [%notitle]
 == turing machine
 
-image::turing-machine.jpg[]
+image::turing-machine.jpg[width=1000px]
 
 [.image-source]
-_Quelle: aturingmachine.com_
+_By Rocky Acosta - Own work, CC BY 3.0, https://commons.wikimedia.org/w/index.php?curid=24369879_
 
 [%notitle]
 == Alonzo church lambda
@@ -63,14 +60,14 @@ ____
 
 
 [%notitle]
-== lambda calculus
+== Lambda calculus
 
 [quote, https://en.wikipedia.org/wiki/Lambda_calculus]
 ____
 Lambda calculus (also written as λ-calculus) 
-is a formal system in mathematical logic 
-for expressing computation based on function abstraction 
-and application using variable binding and substitution. 
+is a **formal system in mathematical logic**
+for expressing computation based on **function abstraction**
+and application using **variable binding and substitution**.
 
 It is a universal model of computation that can be used 
 to simulate any Turing machine.
@@ -79,49 +76,48 @@ ____
 == FP auf dem Weg in den Mainstream
 
 [%step]
-* In C# gibt es schon lange eine recht gute Unterstützung (LINQ, seit C# 7 Pattern Matching)
-* Seit C++11 gibt es auch dort eine Lambda-Syntax
-* Die JavaScript-Community bewegt sich immer stärker in diese Richtung (siehe bspw. React/Redux, neue ES-Features)
-* Seit Java 8 gibt es die Lambda-Syntax in Java
+* C#: Lambda-Syntax, LINQ, Pattern Matching
+* C++: Lambda-Syntax
+* JavaScript: Lambda-Syntax, Bibliotheken wie ramda
+* Java: Lambda-Syntax, Stream-API usw seit Version 8
 
 
 == Zusammenfassung: Lambda Calculus
 
 [%step]
-* Imperative Sprachen wie C, C++, Java usw. basieren auf der Idee der *Turing-Maschine* (Lesen/Schreiben von einem gemeinsamen Speicher)
-* Eine andere, gleichwertige Herangehensweise ist der sog. *Lambda Calculus* - Grundlage funktionaler Sprachen
+* **Imperative Sprachen** (C, C++, Java usw.) basieren auf der Idee der **Turing-Maschine**
+* **Funktionale bzw. deklarative Sprachen** (Lisp, Haskell, Elm usw.) basieren auf dem **Lambda Calculus**
+* Beide Ansätze sind **gleich mächtig**
 * Funktionale Konzepte halten vermehrt auch in Mainstream-Sprachen Einzug 
 
 == Beispiel (Imperativ)
 
 [source, java]
 ----
-private List<Integer> getEvenNumbers(List<Integer> input) {
-    List<Integer> result = new ArrayList<>();
-    for (Integer number : input) {
-        if(number % 2 == 0){
-            result.add(number);
-        }
+List<Integer> numbers = rangeClosed(1, 100);
+List<Integer> result = new ArrayList<>();
 
+for (Integer number : numbers) {
+    if(number % 2 == 0){
+        result.add(number);
     }
 
-    return result;
 }
+
+System.out.println(result);
 ----
 
-=== Beispiel (Imperativ) - Aufruf
+=== Helper
 
 [source, java]
 ----
-List<Integer> input = new ArrayList<>();
-for (int i = 1; i <= 100; i++) {
-    input.add(i);
-}
+public List<Integer> rangeClosed(int start, int endInclusive) {
+    List<Integer> result = new ArrayList<>();
+    for(int i = start; i <= endInclusive; i++){
+        result.add(i);
+    }
 
-List<Integer> result = getEvenNumbers(input);
-
-for (Integer number : result) {
-    System.out.println(number);
+    return result;
 }
 ----
 
@@ -129,70 +125,127 @@ for (Integer number : result) {
 
 [source, java]
 ----
-private List<Integer> getEvenNumbers(List<Integer> input){
-    return input.stream()
-                .filter(number -> number % 2 == 0)
-                .collect(Collectors.toList());
-}
+List<Integer> numbers = IntStream.rangeClosed(1, 100);
+
+input.filter(number -> number % 2 == 0)
+     .forEach(System.out::println);
 ----
 
-=== Beispiel (Funktional) - Aufruf
+=== Mit obligatorischem Java-Overhead
 
 [source, java]
+[subs=+quotes]
 ----
-List<Integer> input = IntStream.rangeClosed(1, 100)
-        .mapToObj(number -> number)
-        .collect(Collectors.toList());
+List<Integer> numbers = IntStream.rangeClosed(1, 100)
+                                 **.mapToObj(number -> number)
+                                 .collect(Collectors.toList())**;
 
-
-List<Integer> result = getEvenNumbers(input);
-
-result.forEach(System.out::println);
+input**.stream()**
+     .filter(number -> number % 2 == 0)
+     .forEach(System.out::println);
 ----
+
 
 [%notitle]
 == Was ist eine Funktion?
 
-image::Function.svg[width="500px"]
+image::Function.svg[width=600px]
 
 [.image-source]
 _Quelle: Wikipedia_
 
-== Was ist eine Funktion?
-
-* Gleicher Input => gleicher Output!
-* Keine Seiteneffekte!
-
 == Keine Seiteneffekte
 
-image::wtf.webp[width="400px"]
+image::wtf.webp[width=800px]
 
 [.image-source]
 _Quelle: Giphy_
 
 [%notitle]
-== State in OO
+== Seiteneffekte
 
-[quote, Joe Armstrong (Creator of Erlang)]
-____
-[...] the problem with object-oriented languages is
-they’ve got all this implicit environment that they carry around with them.
+image::sideeffects.jpg[width=600px]
 
-You wanted a banana 
-but what you got was a gorilla holding the banana
-and the entire jungle.
-____
+=== Assignments
+
+[source, java]
+[subs=+quotes]
+----
+public class Product {
+    private double price;
+
+    public void applyTax(double taxPercent){
+        this.price = this.price + (this.price * taxPercent / 100);
+    }
+}
+----
+
+=== Immutability
+
+[source, java]
+[subs=+quotes]
+----
+public class Product {
+    private double price;
+
+    public Product applyTax(double taxPercent){
+        return new Product(this.price + (this.price * taxPercent / 100));
+    }
+}
+----
 
 == Seiteneffekte in rein funktionalen Sprachen
 
-image::elm-effects.svg[]
+image::elm-effects.svg[width=1000px]
 
 [.image-source]
 _Quelle: https://guide.elm-lang.org/architecture/effects/_
 
-== Functional Core - Imperative Shell
+[%notitle]
+=== Command Pattern
 
-image::clean-arch.png[]
+[source, java]
+[subs=+quotes]
+----
+public interface Command<T> {
+    /**
+     * ACHTUNG: Hat potentiell Seiteneffekte!
+     */
+    T execute();
+}
+
+public class LoadProductsCommand implements Command<Product> {
+    private int productId;
+
+    public LoadProductsCommand(int id) { productId = id; }
+
+    public Product execute() {
+        return loadFromDb(id);
+    }
+}
+----
+
+[%notitle]
+=== Runtime
+
+[source, java]
+[subs=+quotes]
+----
+public interface Runtime {
+    <T> Observable<T> dispatch(Command<T> command);
+}
+
+// ...
+
+Message message = runtime.dispatch(loadProductsCommand)
+                         .map(product -> ProductMessage.create(product));
+
+update(message);
+----
+
+== Funktionaler Kern
+
+image::clean-arch.png[width=600px]
 
 == Zusammenfassung: Grundlagen der FP
 
@@ -217,55 +270,89 @@ DEMO
 NEXT: DEMO
 --
 
+== Umgang mit Fehlern
+
+[source, java]
+[subs=+quotes]
+----
+public Product loadProduct(int id) {
+    try {
+        return loadProductFromDb(id);
+    } catch (Exception e) {
+        LOGGER.error(e);
+        throw new RuntimeException(e);
+    }
+}
+----
+
 [%notitle]
-== Optionals start
+== Umgang mit Fehlern
 
-image::hoare.jpg[]
+[source, java]
+[subs=+quotes]
+----
+Order placeOrder(String itemId){
+    Item item = fetchItem(itemId);
+    if(item != null) {
+        ValidationResult validationResult = validate(item);
+        if(ValidationResult.OK.equals(validationResult)){
+            return createOrder(item);
+        } else {
+            throw new ValidationException("Validation for Item with id " + itemId + " failed");
+        }
+    } else {
+        throw new ItemNotFoundException("Item with id " + itemId + " not found");
+    }
+}
+----
 
-[quote, Tony Hoare]
-____
-I call it my billion-dollar mistake. +
-It was the invention of the null reference in 1965.
-____
+[%notitle]
+== ROP
 
-[.image-source]
-_Quelle: Wikipedia_
-
-[.speaker-hint]
-DEMO
-
-[NOTE.speaker]
---
-NEXT: DEMO
---
-
-== Railway-oriented programming
-
-image::rop.jpg[]
-
-== Zusammenfassung: Nutze das Typsystem!
-
-[%step]
-* NULL hat keine klare Semantik und sollte daher möglichst vermieden werden
-* Optionals sind ein Container für einen oder keinen Wert
-* Railway-oriented programming bezeichnet den Umgang mit Spezialfällen im normalen Programmfluss
-* Es ist eine gute Idee, das Typsystem zu nutzen um (Fachdomänen-)Semantik abzubilden
+image::rop.jpg[width=1500px]
 
 == Monaden: Ein Design Pattern
 
 [%step]
-* Monaden implementieren eine bind/flatMap- sowie eine unit-Funktion (bspw. Optional.of)
-* Es gelten folgende Gesetze: Links/Rechtseindeutigkeit und Assoziativität
-* Achtung: https://www.sitepoint.com/how-optional-breaks-the-monad-laws-and-why-it-matters/
+* Monaden sind **Container** für Werte
+* Sie abstrahieren über den Zugriff auf diese Werte
+* Zwei Bestandteile: unit (Erzeugung) und bind (Mapping des enthaltenen Werts)
 
-[NOTE.speaker]
---
-Monad laws in Java: https://gist.github.com/ms-tg/7420496
---
+== Monaden: Beispiel
 
-== flatMap
+[source, java]
+[subs=+quotes]
+----
+double divide(int dividend, int divisor){
+    return (double) dividend / divisor;
+}
+----
 
-image::flatmap.jpg[]
+=== Monaden: Beispiel
+
+[source, java]
+[subs=+quotes]
+----
+Optional<Double> divide(int dividend, int divisor){
+    if(divisor == 0){
+        return Optional.empty();
+    }
+
+    return Optional.of((double) dividend / divisor);
+}
+----
+
+=== Monaden: Beispiel
+
+[source, java]
+[subs=+quotes]
+----
+String result = divide(5, 2)
+                    .map(result -> "Das Ergebnis ist: " + result)
+                    .orElse("Es konnte kein Ergebnis ermittelt werden");
+
+System.out.println(result);
+----
 
 == Monaden: Ein paar Beispiele
 
@@ -285,6 +372,18 @@ DEMO
 NEXT: DEMO
 --
 
+== flatMap
+
+image::flatmap.jpg[]
+
+== Zusammenfassung: Nutze das Typsystem!
+
+[%step]
+* NULL hat keine klare Semantik und sollte daher möglichst vermieden werden
+* Monaden wie Optional oder Try sind ein Container für Werte
+* Monaden kann man als ein weiteres Design Pattern erachten, das den Umgang mit Fehler/Spezialfällen erleichert
+* Es ist eine gute Idee, das Typsystem zu nutzen um (Fachdomänen-)Semantik abzubilden
+
 [%notitle]
 == Weiterführende Konzepte
 
@@ -297,6 +396,7 @@ image::lambda-wordcloud.png[]
 * Pattern Matching in zukünftiger Java-Version
 * Alternative JVM-Sprachen wie Scala, Kotlin, Clojure, ...
 
+[%notitle]
 == Pattern Matching
 
 [source, java]
@@ -318,6 +418,7 @@ class Prod extends Expr {
 }
 ----
 
+[%notitle]
 == instanceof-Kaskaden
 
 [source, java]
@@ -334,6 +435,7 @@ if(x instanceof Num){
 } 
 ----
 
+[%notitle]
 == Visitor Pattern
 
 [source, java]
@@ -417,8 +519,6 @@ Seq.of(1, 2, 3).cycle();
 
 // tuple((1, 3), (2, 4))
 Seq.of(1, 2, 3, 4).partition(i -> i % 2 != 0);
-
-// usw.
 ----
 
 == Currying mit vavr

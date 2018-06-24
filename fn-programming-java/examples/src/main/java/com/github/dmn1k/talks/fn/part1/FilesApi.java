@@ -1,4 +1,4 @@
-package com.github.dmn1k.talks.fn.section4;
+package com.github.dmn1k.talks.fn.part1;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,8 +9,9 @@ import java.util.Comparator;
 public class FilesApi {
     public static void main(String[] args) throws IOException {
         Files.walk(Paths.get("src/main/resources/files"))
-                .sorted(Comparator.comparing(FilesApi::fileSize))
-                .map(file -> file.getFileName())
+                .filter(Files::isRegularFile)
+                .sorted(Comparator.comparing(FilesApi::fileSize).reversed())
+                .map(file -> file.getFileName() + " - " + fileSize(file))
                 .forEach(System.out::println);
     }
 

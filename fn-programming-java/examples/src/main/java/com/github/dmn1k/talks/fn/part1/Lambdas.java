@@ -1,4 +1,4 @@
-package com.github.dmn1k.talks.fn.section4;
+package com.github.dmn1k.talks.fn.part1;
 
 
 public class Lambdas {
