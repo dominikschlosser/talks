@@ -1,20 +1,37 @@
 :revealjs_theme: simple
 :imagesdir: images
 :customcss: styles/theme.css
+:datum: 19.08.2018
 
 :source-highlighter: highlightjs
+
+ifeval::["{backend}" == "pdf"]
+:source-highlighter: rouge
+endif::[]
 
 :revealjs_center: false
 :revealjs_width: '100%'
 
 :docinfo: shared
 
-== Funktionale Programmierung für Java Entwickler 
+:pdf-stylesdir: themes
+:pdf-style: custom
+
+ifeval::["{backend}" == "revealjs"]
+== Funktionale Programmierung für Java-Entwickler 
 
 image::title.png[]
+[.text-center]
 [.extra-small]
 Dominik Schlosser (@dmn1k) +
 ISO Software Systeme GmbH
+endif::[]
+
+ifeval::["{backend}" == "pdf"]
+= Funktionale Programmierung für Java-Entwickler 
+Dominik Schlosser
+ISO Software Systeme GmbH
+endif::[]
 
 == Über mich
 
@@ -23,17 +40,43 @@ ISO Software Systeme GmbH
 * Java EE, Spring, Angular
 * Privat u.a. Haskell, Elm, Scala
 
+[NOTE.speaker]
+--
+Ich arbeite als externer Consultant vor allem im Enterprise Java Umfeld. 
+Privat beschäftige ich mich seit einigen Jahren mit funktionaler Programmierung - u.a. in Haskell, Elm und auch Java. +
+Dieses Wissen konnte ich auch mehrfach im Job einsetzen und damit Erfahrungen in echten Projekten sammeln. +
+
+Dieses Dokument wurde direkt aus den Vortragsfolien generiert. Allerdings sind im Vortrag einige Live-Coding Abschnitte enthalten, deren Inhalt hier nicht wiedergegeben wird.
+--
+
 == Die ISO-Gruppe
 
 image::iso-vorstellung.png[]
 
+[NOTE.speaker]
+--
+Die ISO-Gruppe (gegründet 1979) ist eine mittelständische Firmengruppe (ca. 500 Mitarbeiter) mit Hauptsitz in Nürnberg. Weitere Standorte befinen sich verteilt über Deutschland sowie in Österreich, Polen und Kanada. +
+Ich arbeite in der ISO Software Systeme GmbH im Bereich 27 - Öffentliche Verwaltung.
+--
+
+<<<
+
 [%notitle]
-== unemployable crazies
+== Lange Zeit eine Randerscheinung
 
 image::fp-unemplyable-crazies.png[width=1000px]
 
+[NOTE.speaker]
+--
+Funktionale Programmierung konnte sich lange Zeit außerhalb akademischer Anwendungsbereiche nicht durchsetzen. +
+Das ändert sich allerdings seit einiger Zeit und ein Ziel dieses Vortrags ist es, Euch näher zu bringen, warum das so ist. +
+Wir werden an ein paar einfachen Beispielen sehen, worum es bei funktionaler Programmierung geht, welche Probleme es löst und wie man funktionale Ansätze gewinnbringend in einem ansonsten objektorientierten Java-Programm einsetzen kann.
+--
+
+<<<
+
 [%notitle]
-== Alan Turing computation
+== Alan Turing
 
 [quote, Alan Turing]
 ____
@@ -41,16 +84,31 @@ Anything that is "effectively" computable can be computed by a +
 *Universal Turing Machine*
 ____
 
+[NOTE.speaker]
+--
+Die Turing Maschine wurde 1936 von Alan Turing als ein mathematisches Modell entwickelt. Mit dieser Maschine lässt sich alles berechnen, was "effektiv berechenbar" ist.
+--
+
 [%notitle]
-== turing machine
+== Turing-Maschine
 
 image::turing-machine.jpg[width=1000px]
 
 [.image-source]
 _By Rocky Acosta - Own work, CC BY 3.0, https://commons.wikimedia.org/w/index.php?curid=24369879_
 
+[NOTE.speaker]
+--
+Eine Turing Maschine ist sehr simpel aufgebaut. Es gibt ein Band, das in Zellen aufgeteilt ist und einen Schreibkopf, der Symbole auf das Band schreiben sowie das Band nach vorn und hinten weiterbewegen kann. +
+Zusätzlich gibt es eine Tabelle mit Instruktionen (bewege das Band, schreibe auf das Band, lösche eine Zelle), die abhängig vom aktuellen Zustand ausgeführt werden. +
+
+Dieses Modell (lesen/schreiben von Speicherzellen) findet sich später im Von Neumann-Computer sowie den meisten Mainstream-Programmiersprachen (Assembler, C, C++, Java, ...) wieder.
+--
+
+<<<
+
 [%notitle]
-== Alonzo church lambda
+== Alonzo Church
 
 [quote, Alonzo Church]
 ____
@@ -58,9 +116,14 @@ Anything that is "effectively" computable can be computed by +
 *λ-calculus*
 ____
 
+[NOTE.speaker]
+--
+Der sog. "Lambda-Kalkül" wurde von Alonzo Church den 1930ern entwickelt. Es handelt sich hierbei um eine formale Sprache, die Berechnungen und Logik vollständig mittels mathematischer Funktionen ausdrückt. +
+Bereits früh wurde entdeckt, dass der Lambda-Kalkül und Turing-Maschinen gleichmächtig sind.
+--
 
 [%notitle]
-== Lambda calculus
+== Lambda Calculus
 
 [quote, https://en.wikipedia.org/wiki/Lambda_calculus]
 ____
@@ -73,7 +136,16 @@ It is a universal model of computation that can be used
 to simulate any Turing machine.
 ____
 
-== FP auf dem Weg in den Mainstream
+[NOTE.speaker]
+--
+Der Lambda-Kalkül drückt alles (selbst Konstanten) als Funktion aus. Durch Bindung freier Variablen (Funktionsabstraktion) entstehen neue Funktionen. +
+Funktionen selbst können als Argument für andere Funktionen verwendet werden (Funktionen höherer Ordnung). +
+Diese abstrakt klingenden Konzepte werden wir später in den Beispielen wiederfinden.
+--
+
+<<<
+
+== Functional goes mainstream
 
 [%step]
 * C#: Lambda-Syntax, LINQ, Pattern Matching
@@ -81,7 +153,15 @@ ____
 * JavaScript: Lambda-Syntax, Bibliotheken wie ramda
 * Java: Lambda-Syntax, Stream-API usw seit Version 8
 
+[NOTE.speaker]
+--
+Funktionale Anteile finden sich heutzutage in vielen Mainstream-Sprachen wieder. C# war hier mit dem sog. "Language Integrated Query" (LINQ) Vorreiter. +
+Seit Version 8 gibt es auch in Java eine (eher minimalistische) Sprachunterstützung funktionaler Konzepte.
+--
 
+<<<
+
+ifeval::["{backend}" == "revealjs"]
 == Zusammenfassung: Lambda Calculus
 
 [%step]
@@ -89,37 +169,33 @@ ____
 * **Funktionale bzw. deklarative Sprachen** (Lisp, Haskell, Elm usw.) basieren auf dem **Lambda Calculus**
 * Beide Ansätze sind **gleich mächtig**
 * Funktionale Konzepte halten vermehrt auch in Mainstream-Sprachen Einzug 
+endif::[]
 
 == Beispiel (Imperativ)
 
 [source, java]
 ----
-List<Integer> numbers = rangeClosed(1, 100);
 List<Integer> result = new ArrayList<>();
 
-for (Integer number : numbers) {
+for(int i = 1; i <= 100; i++){
     if(number % 2 == 0){
         result.add(number);
     }
-
 }
 
 System.out.println(result);
 ----
 
-=== Helper
+[NOTE.speaker]
+--
+Ein einfaches, imperatives Beispiel. +
+Ähnlichen Code hat jeder schon hunderte Male geschrieben. +
 
-[source, java]
-----
-public List<Integer> rangeClosed(int start, int endInclusive) {
-    List<Integer> result = new ArrayList<>();
-    for(int i = start; i <= endInclusive; i++){
-        result.add(i);
-    }
+Aber wie oft hatten wir schon +/-1 Fehler in for-Schleifen?
+Und wird hier wirklich die Intention klar? +
 
-    return result;
-}
-----
+Im imperativen Ansatz beschreiben wir WIE wir etwas tun, nicht WAS wir tun.
+--
 
 == Beispiel (Funktional)
 
@@ -145,6 +221,15 @@ input**.stream()**
      .forEach(System.out::println);
 ----
 
+[NOTE.speaker]
+--
+Das gleiche Beispiel, diesmal funktional. Erst wie es sein sollte und dann wie es in Java 
+wirklich ist. +
+Hier werden keine temporären Variablen benötigt. Es wird nicht beschrieben WIE das Filtern
+funktioniert, sondern lediglich nach WAS ich filtern möchte.
+--
+
+<<<
 
 [%notitle]
 == Was ist eine Funktion?
@@ -154,19 +239,33 @@ image::Function.svg[width=600px]
 [.image-source]
 _Quelle: Wikipedia_
 
+[NOTE.speaker]
+--
+Eine Funktion hat folgende Eigenschaften: + 
+* Gleicher Input -> gleicher Output (referentielle Transparenz) + 
+* Sowohl Input als auch Output können selbst wieder Funktionen sein (damit kann man bspw. jede Funktion als Funktion mit nur einem Argument auffassen, die eine Funktion mit den übrigen Argumenten zurückgibt) + 
+* Eine Funktion hat keine Seiteneffekte! + 
+--
+
+<<<
+
+ifeval::["{backend}" == "revealjs"]
 == Keine Seiteneffekte
 
 image::wtf.webp[width=800px]
 
 [.image-source]
 _Quelle: Giphy_
+endif::[]
 
 [%notitle]
 == Seiteneffekte
 
 image::sideeffects.jpg[width=600px]
 
-=== Assignments
+<<<
+
+=== Nicht-lokale Zuweisungen
 
 [source, java]
 [subs=+quotes]
@@ -194,22 +293,43 @@ public class Product {
 }
 ----
 
+[NOTE.speaker]
+--
+Seiteneffekte reichen von nicht-lokalen Variablenzuweisungen (Änderung eines Zustands) über Konsolenausgaben bis zu Änderungen in einer Datenbank oder Aufrufen von Webservices. +
+All das wollen wir in puren Funktionen nicht haben. +
+Zustandsänderungen können über das Prinzip unveränderlicher Daten verhindert werden. Anstatt einen Wert zu ändern, wird hier ein neuer Wert erzeugt. +
+Das ist hinsichtlich Speicherbedarf und Performance zunächst mal nachteilig, bringt uns aber auch deutlich leichtere Verständlichkeit auch komplexer Programme. +
+Den Nachteilen kann bspw. über persistente Datenstrukturen (bspw. Linked Lists) entgegengewirkt werden. +
+
+Bonusfrage: Was ist an dem Beispiel (neben der Zustandsänderung) noch problematisch?
+--
+
+<<<
+
 == Seiteneffekte in rein funktionalen Sprachen
 
-image::elm-effects.svg[width=1000px]
+image::elm-effects.png[width=1000px]
 
 [.image-source]
 _Quelle: https://guide.elm-lang.org/architecture/effects/_
 
+[NOTE.speaker]
+--
+Die Elm-Architektur zeigt, wie man in der rein-funktionalen Welt mit Seiteneffekten umgehen kann: +
+Anstatt etwas seiteneffektbehaftetes zu tun, wird ein Command an die Runtime übergeben. Diese führt den Command (bspw. Webservice-Call) aus und erzeugt aus dem Ergebnis eine Message, auf die das Programm reagieren kann.
+--
+
+<<<
+
 [%notitle]
-=== Command Pattern
+=== "Command Pattern"
 
 [source, java]
 [subs=+quotes]
 ----
 public interface Command<T> {
     /**
-     * ACHTUNG: Hat potentiell Seiteneffekte!
+     * ACHTUNG: Hat potenziell Seiteneffekte!
      */
     T execute();
 }
@@ -225,28 +345,52 @@ public class LoadProductsCommand implements Command<Product> {
 }
 ----
 
+[NOTE.speaker]
+--
+Als Java-Klasse kann man sich das Ganze wie ein Command-Pattern vorstellen: Durch die Erzeugung des Commands geschieht noch nichts aber das Command-Objekt beschreibt, was geschehen soll.
+--
+
+<<<
+
 [%notitle]
-=== Runtime
+=== Die Runtime (konzeptionell)
 
 [source, java]
 [subs=+quotes]
 ----
 public interface Runtime {
-    <T> Observable<T> dispatch(Command<T> command);
+    Message dispatch(Command<T> command);
 }
 
 // ...
 
-Message message = runtime.dispatch(loadProductsCommand)
-                         .map(product -> ProductMessage.create(product));
+Message message = runtime.dispatch(loadProductsCommand);
 
 update(message);
 ----
+
+[NOTE.speaker]
+--
+So könnte man sich sowas wie die Elm-Runtime in Java konzeptionell vorstellen: +
+Sie nimmt Commands entgegen, führt sie aus und erzeugt aus dem Ergebnis (kann auch ein Fehler sein) ein Command. +
+Die Message wird dann an die Update-Funktion übergeben, die das Programm bereitstellt.
+--
+
+<<<
 
 == Funktionaler Kern
 
 image::clean-arch.png[width=600px]
 
+[NOTE.speaker]
+--
+In nicht rein-funktionalen Sprachen hat sich dazu ein Architekturpattern namens "Clean Architecture" oder auch "Ports and Adapters" bzw. "Hexagonale Architektur" etabliert: +
+Seiteneffekte werden dabei möglichst an den Systemrand gedrängt, in dem der rein-funktionale Kern nur mit Abstraktionen (Ports) arbeitet, die dort über Adapter implementiert werden.
+--
+ 
+<<<
+
+ifeval::["{backend}" == "revealjs"]
 == Zusammenfassung: Grundlagen der FP
 
 [%step]
@@ -269,6 +413,7 @@ DEMO
 --
 NEXT: DEMO
 --
+endif::[]
 
 == Umgang mit Fehlern
 
@@ -286,7 +431,7 @@ public Product loadProduct(int id) {
 ----
 
 [%notitle]
-== Umgang mit Fehlern
+== Wenn das Fehlerhandling alles übertönt
 
 [source, java]
 [subs=+quotes]
@@ -306,10 +451,25 @@ Order placeOrder(String itemId){
 }
 ----
 
+[NOTE.speaker]
+--
+Fehlerhandling ist in objektorientierten Sprachen oft sehr dominant. Man sieht vor lauter Fehlerbehandlungscode nicht mehr, was der Code eigentlich im Normalfall tun soll. +
+Zudem werden Fehler häufig in jeder Schicht / in jeder Klasse der Aufrufkette "behandelt", da der Entwickler sich nicht darauf verlassen kann/will, dass es an der Systemgrenze eine Fehlerbehandlung gibt.
+--
+ 
+<<<
+
 [%notitle]
-== ROP
+== Railway-oriented Programming
 
 image::rop.jpg[width=1500px]
+
+[NOTE.speaker]
+--
+Das sog. "Railway-oriented Programming" (Scott Wlaschin) ist eine Möglichkeit, Fehlerbehandlung typsicher und unaufdringlich in den Code zu integrieren.
+--
+ 
+<<<
 
 == Monaden: Ein Design Pattern
 
@@ -328,7 +488,9 @@ double divide(int dividend, int divisor){
 }
 ----
 
+ifeval::["{backend}" == "revealjs"]
 === Monaden: Beispiel
+endif::[]
 
 [source, java]
 [subs=+quotes]
@@ -342,7 +504,9 @@ Optional<Double> divide(int dividend, int divisor){
 }
 ----
 
+ifeval::["{backend}" == "revealjs"]
 === Monaden: Beispiel
+endif::[]
 
 [source, java]
 [subs=+quotes]
@@ -354,6 +518,21 @@ String result = divide(5, 2)
 System.out.println(result);
 ----
 
+[NOTE.speaker]
+--
+Monaden sind lediglich ein Design Pattern mit ein paar besonderen Eigenschaften, die unproblematische Komposition ermöglichen. +
+Sie abstrahieren über den Zugriff, auf die enthaltenen Werte:
+* Optional kann bspw. keinen Wert enthalten +
+* Die Werte in Stream werden erst bei Zugriff erzeugt (lazy) +
+* Ein Try kann statt einem Wert einen Fehlerzustand enthalten +
+* Ein Observable kann die enthaltenen Werte noch nicht erhalten haben +
+
+usw.
+--
+ 
+<<<
+
+ifeval::["{backend}" == "revealjs"]
 == Monaden: Ein paar Beispiele
 
 * Optional
@@ -372,22 +551,21 @@ DEMO
 NEXT: DEMO
 --
 
-== flatMap
-
-image::flatmap.jpg[]
-
 == Zusammenfassung: Nutze das Typsystem!
 
 [%step]
 * NULL hat keine klare Semantik und sollte daher möglichst vermieden werden
 * Monaden wie Optional oder Try sind ein Container für Werte
-* Monaden kann man als ein weiteres Design Pattern erachten, das den Umgang mit Fehler/Spezialfällen erleichert
+* Monaden kann man als ein weiteres Design Pattern erachten, das den Umgang mit Fehlern/Spezialfällen erleichert
 * Es ist eine gute Idee, das Typsystem zu nutzen um (Fachdomänen-)Semantik abzubilden
+endif::[]
 
 [%notitle]
 == Weiterführende Konzepte
 
 image::lambda-wordcloud.png[]
+
+<<<
 
 == Going forward
 
@@ -395,6 +573,13 @@ image::lambda-wordcloud.png[]
 * Frameworks wie jooλ oder vavr
 * Pattern Matching in zukünftiger Java-Version
 * Alternative JVM-Sprachen wie Scala, Kotlin, Clojure, ...
+
+[NOTE.speaker]
+--
+Im Folgenden werden ein paar weiterführende Konzepte und zusätzliche Frameworks vorgestellt.
+--
+ 
+<<<
 
 [%notitle]
 == Pattern Matching
@@ -418,6 +603,14 @@ class Prod extends Expr {
 }
 ----
 
+[NOTE.speaker]
+--
+Pattern Matching ist ein wichtiger Bestandteil funktionaler Sprachen, der allerdings in Java bisher nicht umgesetzt wurde. +
+Im Rahmen von "Project Amber" soll Java um Pattern Matching erweitert werden: http://openjdk.java.net/jeps/305
+--
+ 
+<<<
+
 [%notitle]
 == instanceof-Kaskaden
 
@@ -434,6 +627,16 @@ if(x instanceof Num){
     // ...
 } 
 ----
+
+[NOTE.speaker]
+--
+Pattern Matching ist dann wichtig, wenn man abhängig von dem Typ, den ein Objekt hat, etwas tun möchte. +
+Ohne Pattern Matching bleibt einem hier nur alle Möglichkeiten per instanceof zu prüfen.
+Der primäre Nachteil hierbei ist, dass der Compiler nicht prüft, ob es weitere Fälle geben könnte. +
+Dies ist insbesondere dann problematisch, wenn eine neue Möglichkeit hinzukommt.
+--
+ 
+<<<
 
 [%notitle]
 == Visitor Pattern
@@ -457,6 +660,13 @@ class Num extends Expr {
 }
 ----
 
+[NOTE.speaker]
+--
+Dies lässt sich über das Visitor Pattern lösen. Diese Lösung bietet sich bei sowas wie AST-Parsing an, führt sonst aber zu ziemlich viel Overhead.
+--
+ 
+<<<
+
 == Pattern Matching - Scala
 
 [source, scala]
@@ -467,6 +677,14 @@ def evalExpr(e: Expr): Int = e match {
   case Prod(l, r) => evalExpr(l) * evalExpr(r)
 }
 ----
+
+[NOTE.speaker]
+--
+Funktionale Sprachen bieten hierfür "Pattern Matching". +
+Man kann sich das wie ein stark erweitertes switch-Statement vorstellen: +
+* Der Compiler prüft "exhaustiveness", d.h. ob alle möglichen Fälle deklariert sind +
+* Im Case-Teil befindet sich ein "Pattern", d.h. hier wird beschrieben wie der zu matchende Fall aussieht. Hierüber werden also Bestandteile des Typs "extrahiert".
+--
 
 == Pattern Matching - vavr
 
@@ -482,6 +700,14 @@ public int evalExpr(Expr expr) {
 }
 ----
 
+[NOTE.speaker]
+--
+Java als Sprache beherrscht kein Pattern Matching. Über Bibliotheken wie "vavr" lässt es sich emulieren, wobei es hier natürlich Einschränkungen gibt.
+Statt eines Exhaustiveness-Checks des Compilers gibt es hier bspw. einen "Else"-Zweig, in dem eine Exception geworfen wird.
+--
+ 
+<<<
+
 == Pattern Matching - Java vFuture
 
 [source, java]
@@ -496,6 +722,15 @@ public int evalExpr(Expr expr) {
 }
 ----
 
+[NOTE.speaker]
+--
+Es ist sehr wahrscheinlich, dass Java Pattern Matching in zukünftigen Versionen umsetzen wird. Wie es genau aussehen wird, ist allerdings schwer vorhersagbar. +
+Laut dem offiziellen JEP und Aussagen von Brian Goetz wird der Support in mehreren Stufen erfolgen, wobei das Switch-Statement erweitert werden soll.
+--
+ 
+<<<
+
+ifeval::["{backend}" == "revealjs"]
 == Zusammenfassung: Pattern Matching
 
 [%step]
@@ -503,6 +738,7 @@ public int evalExpr(Expr expr) {
 * Funktioniert nur auf Typen mit bestimmten Eigenschaften (Wert-Semantik, "unapply", möglichst sealed)
 * Stand heute muss man Pattern Matching in Code nachbauen (bspw. mit vavr) oder man nutzt bspw. das Visitor-Pattern
 * Pattern-Matching wird im Rahmen von Project Amber Teil von Java werden
+endif::[]
 
 == Fehlende Features mit jool nachrüsten
 
@@ -520,6 +756,13 @@ Seq.of(1, 2, 3).cycle();
 // tuple((1, 3), (2, 4))
 Seq.of(1, 2, 3, 4).partition(i -> i % 2 != 0);
 ----
+
+[NOTE.speaker]
+--
+jOOL (https://github.com/jOOQ/jOOL) ist eine Bibliothek, die über einen "Seq"-Type viele in Standard-Java (List/Stream) fehlende Funktionen nachrüstet.
+--
+ 
+<<<
 
 == Currying mit vavr
 
@@ -546,6 +789,14 @@ Option<Integer> i1 = safeDivide.apply(1, 0);
 Option<Integer> i2 = safeDivide.apply(4, 2);
 ----
 
+[NOTE.speaker]
+--
+vavr (http://www.vavr.io/) ist eine weitere, populäre Bibliothek für funktionales Programmieren in Java. +
+Sie liefert viele persistente Datenstrukturen (List, Map, Set, Tree, ...) und jeweils sehr viele Funktionen für die Arbeit mit diesen Datenstrukturen. +
+Die API orientiert sich dabei sehr stark an Haskell.
+--
+
+ifeval::["{backend}" == "revealjs"]
 [%notitle]
 == Abschied
 
@@ -555,4 +806,5 @@ Learn OO. +
 Learn FP. +
 Rise above them both.
 ____
+endif::[]
 

@@ -1,0 +1,11 @@
+- keine Abkürzungen
+- zitate vorlesen
+- überschriften durchgängig
+- seitenzahl
+- schriftgröße
+- pause nach wichtigen aussagen
+- lambda notation länger wirken lassen => folie mit erklärung
+- keine method-referenz syntax am anfang
+- monaden länger
+- => CompletableFuture Beispiel besser vorbereiten
+- N inputs und N outputs (über tuple) erklären
