@@ -10,7 +10,6 @@ marp: true;
 ul li {
   margin-bottom: 1.2em;
 }
-
 </style>
 
 # Modernes und flexibles Identity- und Access-Management mit Keycloak
@@ -56,6 +55,7 @@ Con:
 ---
 # Keycloak
 
+<!-- 5 Minuten bis "Einführung Keycloak in einer großen Bundesbehörde" -->
 - Open Source IAM (Apache 2.0)
 - AuthN und AuthZ
 - Identity Brokering / Social Login
@@ -82,6 +82,7 @@ Con:
 ---
 # Einführung Keycloak in einer großen Bundesbehörde
 
+<!-- 5 Minuten bis "Cassandra" -->
  - Es existiert bereits ein IAM (proprietär, historisch gewachsen)
  - Wunsch nach Modernisierung
  - Zielbild: Standardkonform, anpassbar an fachliche Anforderungen, zukunftssicher
@@ -115,16 +116,17 @@ Con:
 ---
 # Keycloak Systemarchitektur
 
+<!-- 5 Minuten bis "Config as Code" -->
+
 ![Sysarch-Orig](keycloak-sysarch-orig.svg)
 
----
-# Herausforderungen: Keycloak-Architektur
-
+<!-- 
 - Infinispan verhindert aktuell Zero Downtime Upgrades
 - Infinispan-Querkommunikation (via JGroups) kann zu unerwarteten Performanceproblemen führen
 - Infinispan-Discovery und Kommunikation problematisch bei Verwendung von Service-Meshes (Istio)
 - Konfiguration aktuell in der Datenbank, Config-As-Code nur mit 3rd-Party-Tools (ConfigCLI) möglich
 - Fokus auf relationale Datenbanken schränkt Lösungsraum ein
+-->
 
 ---
 # Keycloak-Extensions for the win!
@@ -138,23 +140,10 @@ Con:
 
 ---
 
-# Die neue Map-Storage (Preview)
-
-![Map-Storage](map-storage.svg)
-
----
-
-# Map-Storage ermöglicht Anbindung einer Cassandra-DB
-
-- Allerdings ist hier das Überschreiben des Logical Layers notwendig (Query First)
-- Anbindung über eigene DatastoreProvider-Implementierung
-- Aktuell leider noch nicht alle Storage-Areas in DatastoreProvider abgebildet (https://github.com/keycloak/keycloak/pull/19889)
-- Es fehlt ein offizieller Test-Harness, daher wird Korrektheit über kopierte und angepasste Tests überprüft
-
----
-
 # Keycloak-Cassandra
 
+<!-- Basiert auf Map-Storage -->
+<!-- TODO: Weniger Text -->
 - https://github.com/opdt/keycloak-cassandra-extension
 - Wird intern seit einem Jahr genutzt und weiterentwickelt
 - Hat erfolgreich Lasttests durchlaufen
@@ -164,26 +153,18 @@ Con:
 
 ---
 
-# Keycloak-Cassandra: Disclaimer
-
-- ⚠️ Keycloak setzt im Kern auf Transaktionalität, die in Cassandra nicht in der Form vorhanden ist. ⚠️
-- Query-First verhindert dynamische Queries. Die Extension muss alle Query-Möglichkeiten kennen.
-- "Cache-Areas" wie UserSession oder SingleUseObjects eignen sich perfekt für den Einsatz der Cassandra (eliminiert Infinispan)
-- Einsatz von LWTs bei Updates in anderen Areas (z.B. User). Versionierung zur Erkennung konkurrierender Updates. Aber keine Rollbacks!
-- 💡Konsistenz komplexer fachlicher Transaktionen (viele Keycloak-API-Calls) muss durch Aufrufer sichergestellt werden (Retries)💡
-
----
-
 # Vereinfachte Systemarchitektur
 
 ![Systemarchitektur-Cassandra](keycloak-sysarch-cassandra.svg)
 
 ---
 # Config as Code
+<!-- 6 Minuten bis "Demo" -->
 
 ---
 # Status Quo Keycloak
 
+<!-- TODO: Weniger Text -->
 - DB = Config-Speicher (für Realms, Clients, etc.)
 - Keine Reproduzierbarkeit, Sicherung nur via DB-Backup
 - 🛟 keycloak-config-cli to the rescue 🛟  
@@ -198,7 +179,6 @@ Con:
 - Ab Keycloak 21 neue „DB“: lokale YAML-Files
 - Aktuell noch frühes Preview-Stadium (Format wird sich noch ändern)
 - Zwischenschritt über DB entfällt komplett
-  🠖 Git ist wirklich „source of truth“
 - Config in Git 🠖 ConfigMap in Kubernetes 🠖 Mount in Keycloak-Pod
 
 ---
@@ -290,6 +270,7 @@ ssoSessionMaxLifespan: 36000
 ---
 
 # Anpassung eines Authentication Flows
+<!-- 10 Minuten bis "Deployment im Überblick" -->
 
 - Authentication Flows beschreiben den Ablauf eines Authentifizierungsvorgangs
 - Es gibt auch Flows, die z.B. nach Rückkehr von einem externen IDP einsetzen
@@ -301,6 +282,7 @@ ssoSessionMaxLifespan: 36000
 
 ---
 # Deployment im Überblick
+<!-- 8 Minuten -->
 
 ![Deployment Artifacts](deployment-artifacts.svg)
 
@@ -314,4 +296,3 @@ ssoSessionMaxLifespan: 36000
 
 ---
 # Fragen?
-
