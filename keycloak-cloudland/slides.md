@@ -143,13 +143,15 @@ Con:
 # Keycloak-Cassandra
 
 <!-- Basiert auf Map-Storage -->
-<!-- TODO: Weniger Text -->
 - https://github.com/opdt/keycloak-cassandra-extension
 - Wird intern seit einem Jahr genutzt und weiterentwickelt
+- Contributions welcome!
+
+<!-- 
 - Hat erfolgreich Lasttests durchlaufen
 - Macht auch Infinispan überflüssig
 - Welche Storage-Areas verwendet werden sollen ist konfigurierbar (Mischung möglich)
-- Contributions welcome!
+-->
 
 ---
 
@@ -271,8 +273,7 @@ ssoSessionMaxLifespan: 36000
 <!-- 10 Minuten bis "Deployment im Überblick" -->
 
 - Authentication Flows beschreiben den Ablauf eines Authentifizierungsvorgangs
-- Es gibt auch Flows, die z.B. nach Rückkehr von einem externen IDP einsetzen
-- Flows sind DAGs deren Ergebnis entweder eine erfolgreiche Anmeldung oder ein Fehler ist
+- Flows sind gerichtete, azyklische Graphen deren Ergebnis entweder eine erfolgreiche Anmeldung oder ein Fehler ist
 - SPI-Implementierungen ermöglichen komplexe Erweiterungen um Loginvorgänge an die eigenen Anforderungen anzupassen
 
 ---
