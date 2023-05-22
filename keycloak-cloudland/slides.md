@@ -31,7 +31,7 @@ ul li {
 - Aktuell Teil eines Plattformteams einer großen Behörde
 
 ---
-# Einführung: Angebote aus der Cloud
+# IAM selbst betreiben???
 
 - AWS Cognito
 - Azure Active Directory B2C
@@ -46,6 +46,7 @@ Pro:
 - erprobt und weltweit im Einsatz
 - Administrationaufwand: keine Gedanken um DB, Configs, etc.
 
+---
 Con:
 
 - geringe Flexibilität für komplexe Erweiterungen:  
@@ -93,8 +94,7 @@ Con:
 - Umfeld: Verwaltung  
   🠖 enger rechtlicher Rahmen, umfangreiche fachliche Anforderungen, etc.
 - Wunsch nach Standardsystem ⚡ Bedarf an Sonderlocken
-- Abhängigkeiten von Altsystemen zu wichtiger Geschäftslogik  
-  🠖 Migration umfasst mehr als nur Wechsel IAM-System
+- Abhängigkeiten von wichtiger Geschäftslogik zu Alt-IAM
 - Verantwortung für Identity-Management auf 3 Teams aufgeteilt
 
 ---
@@ -169,15 +169,13 @@ Con:
 - Keine Reproduzierbarkeit, Sicherung nur via DB-Backup
 - 🛟 keycloak-config-cli to the rescue 🛟  
   = Tool zum Einspielen von YAML-Config via Admin-API in DB  
-  🠖 Vollständig automatisierte Keycloak-Deployments
-  🠖 Weiterentwicklung der Config mithilfe von Git möglich
-  ⚠️ Keycloak-API unvollständig: irreparable Config in DB
+  ⚠️ Keycloak-API unvollständig 🠖 u. U. irreparable Config in DB
 
 ---
 # +++ NEU +++ File-Storage +++ NEU +++
  
 - Ab Keycloak 21 neue „DB“: lokale YAML-Files
-- Aktuell noch frühes Preview-Stadium (Format wird sich noch ändern)
+- Noch frühes Preview-Stadium (Formatänderungen!)
 - Zwischenschritt über DB entfällt komplett
 - Config in Git 🠖 ConfigMap in Kubernetes 🠖 Mount in Keycloak-Pod
 
@@ -259,13 +257,13 @@ ssoSessionMaxLifespan: 36000
 ```
 
 ---
-# „Hacks“
+# Wie machen wir es nun?
 
 - Abstraktion der Defaults in Helm-Chart
-- Aufteilen der Config auf mehrere K8s-Config-Maps
-- Abbildung der Baumstruktur mit vielen Volume-Mounts
-- Einbinden von Secrets via Template-Schritt
-- Als Early Adopter geben wir kontinuierlich Feedback zur Weiterentwicklung
+- Abbildung der Baumstruktur  
+  🠖  mehrere K8s-Config-Maps & viele Volume-Mounts
+- Vorschalten von Templating-Schritt für Secrets
+- Feedback an Keycloak-Entwickler
 
 ---
 
