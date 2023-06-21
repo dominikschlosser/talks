@@ -10,9 +10,22 @@ marp: true;
 ul li {
   margin-bottom: 1.2em;
 }
+
+img[alt~="center"] {
+  display: block;
+  margin: 0 auto;
+}
 </style>
 
 # Modernes und flexibles Identity- und Access-Management mit Keycloak
+
+---
+<!-- Stefan bis "Keycloak" -->
+# Agenda
+
+- Einleitung
+- Über Keycloak
+- Keycloak in einer großen Bundesbehörde
 
 ---
 # Kurzvorstellung Stefan
@@ -56,7 +69,8 @@ Con:
 ---
 # Keycloak
 
-<!-- 5 Minuten bis "Einführung Keycloak in einer großen Bundesbehörde" -->
+<!-- Dominik bis "Einführung in Bundesbehörde" -->
+<!-- 5 Minuten bis "Erweiterbarkeit von Keycloak" -->
 - Open Source IAM (Apache 2.0)
 - AuthN und AuthZ
 - Identity Brokering / Social Login
@@ -66,19 +80,30 @@ Con:
 
 ---
 
-![Keycloak-CNCF](keycloak-cncf.svg)
+![w:1000 center](keycloak-cncf.svg)
 
 ---
 
-![OAuth-Flow](oauth-flow.svg)
+![w:700 center](oauth-flow.svg)
 
 ---
 
-![OAuth-Flow-Keycloak](oauth-flow-keycloak.svg)
+![w:700 center](oauth-flow-keycloak.svg)
 
 ---
 
-![OIDC](oidc-overview.svg)
+![w:650 center](oidc-overview.svg)
+
+---
+
+# Erweiterbarkeit von Keycloak
+<!-- 10 Minuten bis "Einführung Keycloak in einer großen Bundesbehörde" -->
+
+- Konfiguration (Authentication Flows, Client Policies, ...)
+- SPIs
+
+---
+# Demo: Custom Captcha
 
 ---
 # Einführung Keycloak in einer großen Bundesbehörde
@@ -111,14 +136,15 @@ Con:
 
 # Herausforderung: Infrastruktur
 
-![Infrastruktur](infrastructure.svg)
+![w:500 center](herausforderung-infrastruktur.drawio.svg)
 
 ---
 # Keycloak Systemarchitektur
 
+<!-- Dominik bis "Config as Code" -->
 <!-- 5 Minuten bis "Config as Code" -->
 
-![Sysarch-Orig](keycloak-sysarch-orig.svg)
+![w:900 center](keycloak-sysarch-orig.svg)
 
 <!-- 
 - Infinispan verhindert aktuell Zero Downtime Upgrades
@@ -136,7 +162,7 @@ Con:
 
 ---
 
-![Lets-Go](aermel-hochkrempeln.jpg)
+![w:700 center](aermel-hochkrempeln.jpg)
 
 ---
 
@@ -157,11 +183,12 @@ Con:
 
 # Vereinfachte Systemarchitektur
 
-![Systemarchitektur-Cassandra](keycloak-sysarch-cassandra.svg)
+![w:1000 center](keycloak-sysarch-cassandra.svg)
 
 ---
 # Config as Code
-<!-- 6 Minuten bis "Demo" -->
+<!-- Stefan bis Ende -->
+<!-- 6 Minuten bis "Deployment im Überblick" -->
 
 ---
 # Status Quo Keycloak
@@ -269,21 +296,10 @@ ssoSessionMaxLifespan: 36000
 
 ---
 
-# Anpassung eines Authentication Flows
-<!-- 10 Minuten bis "Deployment im Überblick" -->
-
-- Authentication Flows beschreiben den Ablauf eines Authentifizierungsvorgangs
-- Flows sind gerichtete, azyklische Graphen deren Ergebnis entweder eine erfolgreiche Anmeldung oder ein Fehler ist
-- SPI-Implementierungen ermöglichen komplexe Erweiterungen um Loginvorgänge an die eigenen Anforderungen anzupassen
-
----
-# Demo: Custom Captcha
-
----
 # Deployment im Überblick
 <!-- 8 Minuten -->
 
-![Deployment Artifacts](deployment-artifacts.svg)
+![w:1100 center](deployment-artifacts.svg)
 
 ---
 # Keycloak ist unglaublich flexibel!
